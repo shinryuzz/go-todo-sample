@@ -1,8 +1,11 @@
-FROM golang:1.21-alpine
+FROM golang:1.22-alpine
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY . .
 
-RUN go get github.com/gin-gonic/gin
+RUN go install github.com/gin-gonic/gin \
+    && go install github.com/cosmtrek/air@latest 
+
+CMD ["./entry.sh"]
